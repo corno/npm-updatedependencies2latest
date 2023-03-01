@@ -1,0 +1,7 @@
+{
+  "name": "npm-updatedependencies2latest",
+  "version": "0.0.0",
+  "devDependencies": {
+    "@types/node": "^18.14.2"
+  }
+}
