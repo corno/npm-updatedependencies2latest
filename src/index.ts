@@ -24,8 +24,7 @@ cp.exec(
                 function push(key: string, version: string) {
                     versions.push([key, version])
                     if (versions.length === dependencies.length) {
-                        console.log
-                        cp.exec(`npm pkg set${versions.map(($) => ` dependencies.${$[0]}="^${$[1]}"`)} --prefix ${contextDir}`, (err, stdout, stderr) => {
+                        cp.exec(`npm pkg set ${versions.map(($) => `dependencies.${$[0]}="^${$[1]}"`).join(" ")} --prefix ${contextDir}`, (err, stdout, stderr) => {
                             if (verbose) {
                                 versions.forEach(($) => {
                                     console.log(`${$[0]}:${$[1]}`)
