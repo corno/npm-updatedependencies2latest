@@ -24,20 +24,18 @@ cp.exec(
                 function push(key: string, version: string) {
                     versions.push([key, version])
                     if (versions.length === dependencies.length) {
-                        versions.forEach(($) => {
-                            //console.log(`KEY VERSION: ${key}:${stdout.trimEnd()}`)
-                            cp.exec(`npm pkg set "dependencies.${$[0]}"="^${$[1]}" --prefix ${contextDir}`, (err, stdout, stderr) => {
-                                if (verbose) {
+                        cp.exec(`npm pkg set ${versions.map(($) => `" dependencies.${$[0]}"="^${$[1]}"`)} --prefix ${contextDir}`, (err, stdout, stderr) => {
+                            if (verbose) {
+                                versions.forEach(($) => {
                                     console.log(`${$[0]}:${$[1]}`)
-                                }
-                                if (err !== null) {
-                                    console.error(`could not set dependency version: ${stderr}`);
-                                    process.exit(1);
-                                }
-                                else {
-                                }
-                            });
-                        })
+                                })
+                            }
+                            if (err !== null) {
+                                console.error(`could not set dependency versions: ${stderr}`);
+                                process.exit(1);
+                            }
+                        });
+                        
                     }
                 }
                 dependencies.forEach((key) => {
