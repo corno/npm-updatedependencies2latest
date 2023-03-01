@@ -14,33 +14,35 @@ cp.exec(
             process.exit(1)
         } else {
             const dependencies = Object.keys(JSON.parse(stdout))
-            function doNext() {
-                const next = dependencies.pop()
-                if (next !== undefined) {
-                    const key = next
-    
-                    //console.log(`KEY: ${key}`)
-                    cp.exec(`npm view ${key}@latest version`, (err, stdout, stderr) => {
-                        if (err !== null) {
-                            console.error(`could not retrieve latest version: ${stderr}`);
-                            process.exit(1);
-                        } else {
-                            //console.log(`KEY VERSION: ${key}:${stdout.trimEnd()}`)
-                            cp.exec(`npm pkg set "dependencies.${key}"="^${stdout.trimEnd()}" --prefix ${contextDir}`, (err, stdout, stderr) => {
-                                //console.log(`KEY SET: ${key}`)
-                                if (err !== null) {
-                                    console.error(`could not set dependency version: ${stderr}`);
-                                    process.exit(1);
-                                }
-                                else {
-                                    doNext()
-                                }
-                            });
-                        }
-                    });
+            const versions: [string, string][] = []
+            function push(key: string, version: string) {
+                versions.push([key, version])
+                if (versions.length === dependencies.length) {
+                    versions.forEach(($) => {
+                        //console.log(`KEY VERSION: ${key}:${stdout.trimEnd()}`)
+                        cp.exec(`npm pkg set "dependencies.${$[0]}"="^${$[1]}" --prefix ${contextDir}`, (err, stdout, stderr) => {
+                            //console.log(`KEY SET: ${key}`)
+                            if (err !== null) {
+                                console.error(`could not set dependency version: ${stderr}`);
+                                process.exit(1);
+                            }
+                            else {
+                            }
+                        });
+                    })
                 }
             }
-            doNext()
+            dependencies.forEach((key) => {
+                //console.log(`KEY: ${key}`)
+                cp.exec(`npm view ${key}@latest version`, (err, stdout, stderr) => {
+                    if (err !== null) {
+                        console.error(`could not retrieve latest version: ${stderr}`);
+                        process.exit(1);
+                    } else {
+                        push(key, stdout.trimEnd())
+                    }
+                });
+            })
         }
     }
 )
