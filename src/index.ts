@@ -1,7 +1,10 @@
+#!/usr/bin/env node
+
 import * as cp from "child_process"
 
 if (process.argv.length < 4) {
-    throw new Error("dirContainingPackage.json dependencies|devDependencies [verbose]")
+    console.error("usage: dirContainingPackage.json dependencies|devDependencies [verbose]")
+    process.exit(1)
 }
 
 const contextDir = process.argv[2]
