@@ -1,6 +1,6 @@
 {
   "name": "npm-updatedependencies2latest",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "devDependencies": {
     "@types/node": "^18.14.2",
     "typescript": "^4.9.5"
