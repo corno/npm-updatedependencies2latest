@@ -1,14 +1,15 @@
 import * as cp from "child_process"
 
-if (process.argv.length < 3) {
-    throw new Error("expected path to dir containing package.json")
+if (process.argv.length < 4) {
+    throw new Error("dirContainingPackage.json dependencies|devDependencies [verbose]")
 }
 
 const contextDir = process.argv[2]
-const verbose = process.argv[3] !== undefined
+const dependencyType = process.argv[3]
+const verbose = process.argv[4] !== undefined
 
 cp.exec(
-    `npm pkg get "dependencies" --prefix ${contextDir}`,
+    `npm pkg get "${dependencyType}" --prefix ${contextDir}`,
     (err, stdout, stderr) => {
         if (err !== null) {
             console.error(`${stderr}`)
@@ -24,7 +25,7 @@ cp.exec(
                 function push(key: string, version: string) {
                     versions.push([key, version])
                     if (versions.length === dependencies.length) {
-                        cp.exec(`npm pkg set ${versions.map(($) => `dependencies.${$[0]}="^${$[1]}"`).join(" ")} --prefix ${contextDir}`, (err, stdout, stderr) => {
+                        cp.exec(`npm pkg set ${versions.map(($) => `${dependencyType}.${$[0]}="^${$[1]}"`).join(" ")} --prefix ${contextDir}`, (err, stdout, stderr) => {
                             if (verbose) {
                                 versions.forEach(($) => {
                                     console.log(`${$[0]}:${$[1]}`)
