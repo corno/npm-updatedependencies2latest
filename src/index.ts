@@ -4,8 +4,10 @@ if (process.argv.length !== 3) {
     throw new Error("expected path to dir containing package.json")
 }
 
+const contextDir = process.argv[2]
+
 cp.exec(
-    `npm pkg get "dependencies" --prefix ${process.argv[2]}`,
+    `npm pkg get "dependencies" --prefix ${contextDir}`,
     (err, stdout, stderr) => {
         if (err !== null) {
             console.error(`${stderr}`)
@@ -20,7 +22,7 @@ cp.exec(
                             process.exit(1)
                         } else {
                             cp.exec(
-                                `npm pkg set "dependencies.${key}"="^${stdout.trimEnd()}"`,
+                                `npm pkg set "dependencies.${key}"="^${stdout.trimEnd()}" --prefix ${contextDir}`,
                                 (err, stdout, stderr) => {
                                     if (err !== null) {
                                         console.error(`${stderr}`)
