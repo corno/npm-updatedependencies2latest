@@ -1,6 +1,33 @@
 {
   "name": "npm-updatedependencies2latest",
   "version": "0.0.11",
+
+  "author": "Corno Schraverus <corno.npm@schraverus.com>",
+  "license": "ISC",
+
+  "description": "update your package.json to the latest versions of its dependencies",
+  "keywords": [
+    "npm",
+    "find",
+    "updates",
+    "upgrades",
+    "latest",
+    "dependencies",
+    "package.json",
+    "updater",
+    "version",
+    "management"
+  ],
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/corno/npm-updatedependencies2latest.git"
+  },
+  "homepage": "https://github.com/corno/npm-updatedependencies2latest",
+  "bugs": {
+    "url": "https://github.com/corno/npm-updatedependencies2latest/issues"
+  },
+  
   "devDependencies": {
     "@types/node": "^18.14.2",
     "typescript": "^4.9.5"
