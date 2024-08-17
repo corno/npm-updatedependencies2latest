@@ -35,7 +35,7 @@
     "update devDependencies": "./dist/index.js . devDependencies",
     "build": "./scripts/build.sh",
     "version patch": "npm version patch",
-    "publish": "npm publish"
+    "publish": "#no pre actions needed"
   },
   "bin": {
     "update2latest": "dist/index.js"
