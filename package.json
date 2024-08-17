@@ -1,6 +1,6 @@
 {
   "name": "npm-updatedependencies2latest",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "author": "Corno Schraverus <corno.npm@schraverus.com>",
   "license": "ISC",
   "description": "update your package.json to the latest versions of its dependencies",
