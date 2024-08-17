@@ -3,12 +3,24 @@
 import * as cp from "child_process"
 
 if (process.argv.length < 4) {
-    console.error("usage: dirContainingPackage.json dependencies|devDependencies [verbose]")
+    console.error("usage: 'directory containing the package.json' dependencies|devDependencies [verbose]")
     process.exit(1)
 }
 
 const contextDir = process.argv[2]
 const dependencyType = process.argv[3]
+
+if (dependencyType !== "dependencies" && dependencyType !== "devDependencies" ) {
+    console.error("for the 2nd parameter choose either 'dependencies' or 'devDependencies'")
+    process.exit(1)
+}
+
+if (process.argv[4] !== undefined && process.argv[4] !== "verbose" ) {
+    console.error("3rd parameter should be omitted or the word 'verbose'")
+    process.exit(1)
+}
+
+
 const verbose = process.argv[4] !== undefined
 
 cp.exec(
@@ -21,7 +33,9 @@ cp.exec(
             try {
                 JSON.parse(stdout)
             } catch (e) {
-                console.error(`the following is not valid JSON: ${stdout}`)
+                console.error(`the command that was run: npm pkg get "${dependencyType}" --prefix ${contextDir}`)
+                console.error(`the following is not valid JSON: '${stdout}'`)
+                process.exit(1)
             }
             const dependencies = Object.keys(JSON.parse(stdout))
             if (dependencies.length === 0) {
