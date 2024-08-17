@@ -25,16 +25,19 @@
     "url": "https://github.com/corno/npm-updatedependencies2latest/issues"
   },
   "devDependencies": {
-    "@types/node": "^18.14.2",
-    "typescript": "^4.9.5"
+    "@types/node": "^22.4.0",
+    "typescript": "^5.5.4"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "./scripts/build.sh"
+    "update devDependencies": "./dist/index.js . devDependencies",
+    "build": "./scripts/build.sh",
+    "version patch": "npm version patch",
+    "publish": "npm publish"
   },
   "bin": {
-    "update2latest": "./dist/index.js"
+    "update2latest": "dist/index.js"
   }
 }
