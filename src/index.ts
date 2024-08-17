@@ -18,6 +18,11 @@ cp.exec(
             console.error(`${stderr}`)
             process.exit(1)
         } else {
+            try {
+                JSON.parse(stdout)
+            } catch (e) {
+                console.error(`the following is not valid JSON: ${stdout}`)
+            }
             const dependencies = Object.keys(JSON.parse(stdout))
             if (dependencies.length === 0) {
                 if (verbose) {
