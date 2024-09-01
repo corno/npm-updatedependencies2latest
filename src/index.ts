@@ -43,7 +43,7 @@ cp.exec(
                 JSON.parse(stdout)
             } catch (e) {
                 console.error(`error while executing ${argv[1]}`)
-                console.error(`working directory ${cwd()}`)
+                console.error(`working directory: ${cwd()}`)
                 console.error(`the command that was run: npm pkg get "${dependencyType}" --prefix ${contextDir}`)
                 console.error(`the following is not valid JSON: '${stdout}'`)
                 process.exit(1)
