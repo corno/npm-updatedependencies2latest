@@ -23,8 +23,9 @@ if (process.argv[4] !== undefined && process.argv[4] !== "verbose" ) {
 
 const beVerbose = process.argv[4] !== undefined
 
+const command = `npm pkg get "${dependencyType}" --prefix ${contextDir}`
 cp.exec(
-    `npm pkg get "${dependencyType}" --prefix ${contextDir}`,
+    command,
     /*
     should return something like this:
 
@@ -44,8 +45,8 @@ cp.exec(
             } catch (e) {
                 console.error(`error while executing ${argv[1]}`)
                 console.error(`working directory: ${cwd()}`)
-                console.error(`the command that was run: npm pkg get "${dependencyType}" --prefix ${contextDir}`)
-                console.error(`the following is not valid JSON: '${stdout}'`)
+                console.error(`the command that was run: \`${command}\``)
+                console.error(`the output of the command is not valid JSON: '${stdout}'`)
                 process.exit(1)
             }
             /* we have a valid JSON */
