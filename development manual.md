@@ -2,6 +2,7 @@
 # Publishing
 
 tsc
-'npm version patch'
+chmod +x dist/index.js
+npm version patch
 commit and push all changes
 'npm publish'
